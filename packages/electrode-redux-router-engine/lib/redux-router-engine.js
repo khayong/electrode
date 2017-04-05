@@ -102,6 +102,7 @@ class ReduxRouterEngine {
         return {
           status: 200,
           html: this._renderToString(req, store, match, withIds),
+          title: this.options.titleToString && this.options.titleToString(),
           prefetch: stringifyPreloadedState(store.getState()),
           css: sheetsToString(req)
         };
