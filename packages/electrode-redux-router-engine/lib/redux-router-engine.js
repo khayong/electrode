@@ -30,6 +30,10 @@ class ReduxRouterEngine {
     if (this.options.renderToString) {
       this._renderToString = this.options.renderToString;
     }
+
+    if (!options.sheetsToString) {
+      this.options.sheetsToString = (req) => '';
+    }
   }
 
   render(req, options) {
@@ -90,13 +94,16 @@ class ReduxRouterEngine {
     const withIds = options.withIds !== undefined ? options.withIds : this.options.withIds;
     const stringifyPreloadedState =
       options.stringifyPreloadedState || this.options.stringifyPreloadedState;
+    const sheetsToString =
+      options.sheetsToString || this.options.sheetsToString;
 
     return (options.createReduxStore || this.options.createReduxStore).call(this, req, match)
       .then((store) => {
         return {
           status: 200,
           html: this._renderToString(req, store, match, withIds),
-          prefetch: stringifyPreloadedState(store.getState())
+          prefetch: stringifyPreloadedState(store.getState()),
+          css: sheetsToString(req)
         };
       });
 
