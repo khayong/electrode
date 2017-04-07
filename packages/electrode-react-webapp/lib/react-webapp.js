@@ -207,7 +207,7 @@ function makeRouteHandler(routeOptions, userContent) {
         case CONTENT_MARKER:
           return content.html || "";
         case TITLE_MARKER:
-          return routeOptions.pageTitle;
+          return content.title || routeOptions.pageTitle;
         case HEADER_BUNDLE_MARKER:
           return makeHeaderBundles();
         case BODY_BUNDLE_MARKER:
