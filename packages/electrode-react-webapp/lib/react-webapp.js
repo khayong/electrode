@@ -12,6 +12,7 @@ const TITLE_MARKER = "{{PAGE_TITLE}}";
 const PREFETCH_MARKER = "{{PREFETCH_BUNDLES}}";
 const META_TAGS_MARKER = "{{META_TAGS}}";
 const CRITICAL_CSS_MARKER = "{{CRITICAL_CSS}}";
+const JSS_SERVER_SIDE = "{{JSS_SERVER_SIDE}}";
 
 const HTTP_ERROR_500 = 500;
 
@@ -217,6 +218,8 @@ function makeRouteHandler(routeOptions, userContent) {
           return iconStats;
         case CRITICAL_CSS_MARKER:
           return criticalCSS;
+        case JSS_SERVER_SIDE:
+          return content.css || "";
         default:
           return `Unknown marker ${m}`;
         }
