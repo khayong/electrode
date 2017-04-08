@@ -52,7 +52,12 @@ module.exports = function () {
     // By default, this archetype assumes you are using CSS-Modules + CSS-Next
     var rules = [{
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract({fallback: styleLoader, use: cssQuery, publicPath: ""})
+      loader: ExtractTextPlugin.extract({fallback: styleLoader, use: cssQuery, publicPath: ""}),
+      exclude: /node_modules/
+    }, {
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract({fallback: styleLoader, use: cssQuery.replace("modules&", ""), publicPath: ""}),
+      include: /node_modules/
     }];
 
     if (cssModuleStylusSupport) {
