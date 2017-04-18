@@ -99,6 +99,7 @@ module.exports = function () {
         new CSSSplitPlugin({size: 4000, imports: true, preserve: true}),
         new webpack.LoaderOptionsPlugin({
           options: {
+            context: Path.resolve(process.cwd(), "client"), 
             postcss: function () {
               return cssModuleSupport ? [atImport, cssnext({
                 browsers: ["last 2 versions", "ie >= 9", "> 5%"]
