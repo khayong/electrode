@@ -220,7 +220,7 @@ function makeRouteHandler(routeOptions, userContent) {
     };
 
     const renderPage = (content) => {
-      const helmet = Helmet.renderStatic();
+      const helmet = content.helmet || Helmet.renderStatic();
 
       return html.replace(/{{[A-Z_]*}}/g, (m) => {
         switch (m) {
