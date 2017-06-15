@@ -109,6 +109,8 @@ class ReduxRouterEngine {
       options.stringifyPreloadedState || this.options.stringifyPreloadedState;
     const sheetsToString =
       options.sheetsToString || this.options.sheetsToString;
+    const renderStaticHelmet =
+      options.renderStaticHelmet || this.options.renderStaticHelmet;
 
     return this._getReduxStoreInitializer(route, options).call(this, req, match)
       .then((store) => {
@@ -118,13 +120,15 @@ class ReduxRouterEngine {
           return x.then((html) => {
             r.status = 200;
             r.html = html;
-	    r.css = sheetsToString(req);
+	        r.css = sheetsToString(req);
+	        r.helmet = renderStaticHelmet && renderStaticHelmet();
             return r;
           });
         } else {
           r.status = 200;
           r.html = x;
-	  r.css = sheetsToString(req);
+	      r.css = sheetsToString(req);
+          r.helmet = renderStaticHelmet && renderStaticHelmet();
           return r;
         }
       });
